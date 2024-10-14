@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:2.2 AS build
 WORKDIR /source
 
 # Copy the solution and restore dependencies
@@ -17,7 +17,7 @@ WORKDIR /source/TodoList.Web
 RUN dotnet publish -c Release -o /app
 
 # Stage 2: Serve
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS runtime
 WORKDIR /app
 COPY --from=build /app ./
 ENTRYPOINT ["dotnet", "TodoList.Web.dll"]
